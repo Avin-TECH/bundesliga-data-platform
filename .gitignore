@@ -1,0 +1,57 @@
+cat > .gitignore << 'EOF'
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+env/
+.venv/
+.env
+
+# Environment variables (contains secrets!)
+.env
+.env.local
+*.env
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data files (we'll store data elsewhere)
+data/
+*.csv
+*.parquet
+*.db
+
+# Logs
+*.log
+logs/
+
+# Docker
+.docker/
+
+# Secrets - NEVER COMMIT THESE
+secrets/
+credentials/
+*.key
+*.pem
+EOF
