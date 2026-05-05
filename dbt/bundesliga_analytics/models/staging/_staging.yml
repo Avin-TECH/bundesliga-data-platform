@@ -1,0 +1,35 @@
+version: 2
+
+models:
+  - name: stg_teams
+    description: "Cleaned team data from football-data.org API"
+    columns:
+      - name: team_id
+        description: "Primary key — the API's team ID"
+        tests:
+          - unique
+          - not_null
+      - name: team_name
+        description: "Full official team name"
+        tests:
+          - not_null
+
+  - name: stg_standings
+    description: "Cleaned current-season standings"
+    columns:
+      - name: standing_id
+        description: "Primary key for standings record"
+        tests:
+          - unique
+          - not_null
+      - name: team_id
+        description: "FK to stg_teams.team_id"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_teams')
+              field: team_id
+      - name: position
+        description: "League position (1-18)"
+        tests:
+          - not_null

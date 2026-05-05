@@ -10,6 +10,26 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - bundesliga_net
+
+  dbt:
+    image: ghcr.io/dbt-labs/dbt-postgres:1.9.latest
+    container_name: bundesliga_dbt
+    working_dir: /usr/app/dbt
+    volumes:
+      - ./dbt:/usr/app/dbt
+      - ./dbt/profiles:/root/.dbt
+    networks:
+      - bundesliga_net
+    depends_on:
+      - postgres
+    entrypoint: [""]
+    command: ["sleep", "infinity"]
 
 volumes:
   postgres_data:
+
+networks:
+  bundesliga_net:
+    driver: bridge

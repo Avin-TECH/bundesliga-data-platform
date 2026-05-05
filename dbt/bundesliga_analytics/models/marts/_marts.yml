@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: fct_team_season
+    description: "One row per team per season with derived metrics"
+    columns:
+      - name: standing_id
+        description: "Unique key from source standings"
+        tests:
+          - unique
+          - not_null
+      - name: team_id
+        tests:
+          - not_null
+      - name: season_tier
+        description: "Classification by league position"
+        tests:
+          - accepted_values:
+              values: ['Champions League', 'Europa League', 'Mid-Table', 'Relegation Zone']

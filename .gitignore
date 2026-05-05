@@ -55,3 +55,4 @@ credentials/
 *.key
 *.pem
 EOF
+dbt/profiles/profiles.yml
