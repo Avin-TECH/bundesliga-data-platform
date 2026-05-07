@@ -27,8 +27,34 @@ services:
     entrypoint: [""]
     command: ["sleep", "infinity"]
 
+  airflow:
+    image: apache/airflow:2.10.4
+    container_name: bundesliga_airflow
+    environment:
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__CORE__EXECUTOR: SequentialExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: sqlite:////opt/airflow/airflow.db
+      _AIRFLOW_DB_MIGRATE: "true"
+      _AIRFLOW_WWW_USER_CREATE: "true"
+      _AIRFLOW_WWW_USER_USERNAME: admin
+      _AIRFLOW_WWW_USER_PASSWORD: admin
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./airflow/logs:/opt/airflow/logs
+      - airflow_db_data:/opt/airflow
+      - ./src:/opt/airflow/src
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "8080:8080"
+    networks:
+      - bundesliga_net
+    command: standalone
+    user: "0:0"
+    restart: unless-stopped
+
 volumes:
   postgres_data:
+  airflow_db_data:
 
 networks:
   bundesliga_net:
